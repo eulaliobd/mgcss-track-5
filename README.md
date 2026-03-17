@@ -1,3 +1,5 @@
+[![CI Pipeline](https://github.com/eulaliobd/mgcss-track-5/actions/workflows/ci.yml/badge.svg)](https://github.com/eulaliobd/mgcss-track-5/actions/workflows/ci.yml)
+
 # \# Proyecto MGCSS - Grupo 5
 
 # 
