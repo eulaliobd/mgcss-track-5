@@ -2,6 +2,8 @@ package com.mgcss.domain;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SolicitudTest {
 
@@ -34,5 +36,24 @@ class SolicitudTest {
         assertThrows(IllegalArgumentException.class, () -> {
             solicitud.asignarTecnico(tecnicoInactivo);
         });
+    }
+    
+    @Test
+    void los_getters_devuelven_datos() {
+        // Arranque
+        Solicitud solicitud = new Solicitud();
+        solicitud.setEstado(Estado.EN_PROCESO); 
+        
+        Tecnico tecnico = new Tecnico();
+        tecnico.setActivo(true);
+        
+        
+        solicitud.asignarTecnico(tecnico);
+        solicitud.cerrar();
+        
+        //Llamamos a los getters para sumar coverage
+        assertEquals(Estado.CERRADA, solicitud.getEstado());
+        assertEquals(tecnico, solicitud.getTecnico());
+        assertTrue(tecnico.isActivo());
     }
 }
