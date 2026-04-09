@@ -4,7 +4,8 @@ public class Tecnico {
 
 	private boolean activo;
 	
-	public Tecnico() {	
+	public Tecnico() {
+		//Constructor vacío necesario para instanciar
 	}
 
 	public boolean isActivo() {
