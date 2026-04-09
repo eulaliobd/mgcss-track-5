@@ -10,7 +10,9 @@ public class Solicitud {
 	private Tecnico tecnico;
 
 	public Solicitud() {
+		//Constructor vacío necesario para instanciar
 	}
+	
 
 	public Long getId() {
 		return id;
