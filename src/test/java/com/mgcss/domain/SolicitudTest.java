@@ -3,22 +3,20 @@ package com.mgcss.domain;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class SolicitudTest {
+class SolicitudTest {
 
     @Test
-    public void no_se_puede_cerrar_una_solicitud_abierta() {
+    void no_se_puede_cerrar_una_solicitud_abierta() {
         // Preparar el escenario
         Solicitud solicitud = new Solicitud();
         solicitud.setEstado(Estado.ABIERTA); 
 
         // Intentar cerrar y verificar que lanza excepción
-        assertThrows(IllegalStateException.class, () -> {
-            solicitud.cerrar();
-        });
+        assertThrows(IllegalStateException.class, solicitud::cerrar);
     }
     
     @Test
-    public void solo_se_puede_asignar_un_tecnico_activo() {
+    void solo_se_puede_asignar_un_tecnico_activo() {
         // Preparar el escenario
         Solicitud solicitud = new Solicitud();
         

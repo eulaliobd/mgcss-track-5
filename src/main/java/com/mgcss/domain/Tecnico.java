@@ -4,8 +4,7 @@ public class Tecnico {
 
 	private boolean activo;
 	
-	public Tecnico() {
-		
+	public Tecnico() {	
 	}
 
 	public boolean isActivo() {
