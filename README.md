@@ -1,4 +1,6 @@
 [![CI Pipeline](https://github.com/eulaliobd/mgcss-track-5/actions/workflows/ci.yml/badge.svg)](https://github.com/eulaliobd/mgcss-track-5/actions/workflows/ci.yml)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=eulaliobd_mgcss-track-5&metric=coverage)](https://sonarcloud.io/summary/new_code?id=eulaliobd_mgcss-track-5)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=eulaliobd_mgcss-track-5&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=eulaliobd_mgcss-track-5)
 
 # \# Proyecto MGCSS - Grupo 5
 
