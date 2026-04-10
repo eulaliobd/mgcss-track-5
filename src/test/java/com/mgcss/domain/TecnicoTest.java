@@ -11,7 +11,7 @@ class TecnicoTest {
         Tecnico tecnico = new Tecnico();
         
         assertThrows(IllegalArgumentException.class, () -> {
-            tecnico.setExperiencia(-1); // Intentamos colarle un número negativo
+            tecnico.setExperiencia(-1); 
         });
     }
 
