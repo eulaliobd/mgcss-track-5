@@ -50,7 +50,13 @@ public class Solicitud {
       }
 
 	public void asignarTecnico(Tecnico tecnico) {
-        if (!tecnico.isActivo()) {
+		// Proteger el estado cerrado
+        if (this.estado == Estado.CERRADA) {
+            throw new IllegalStateException("No se puede asignar un técnico a una solicitud ya cerrada");
+        }
+        
+        // El técnico debe estar activo
+		if (!tecnico.isActivo()) {
             throw new IllegalArgumentException("Solo se puede asignar un técnico activo a la solicitud");
         }
         

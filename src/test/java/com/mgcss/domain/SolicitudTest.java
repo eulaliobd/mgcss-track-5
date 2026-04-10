@@ -56,4 +56,19 @@ class SolicitudTest {
         assertEquals(tecnico, solicitud.getTecnico());
         assertTrue(tecnico.isActivo());
     }
+    
+    @Test
+    void no_se_puede_asignar_tecnico_a_solicitud_cerrada() {
+        // Preparamos una solicitud cerrada y un técnico válido
+        Solicitud solicitud = new Solicitud();
+        solicitud.setEstado(Estado.CERRADA); // Asegúrate de usar el nombre exacto de tu estado
+        
+        Tecnico tecnico = new Tecnico();
+        tecnico.setActivo(true);
+
+        // Intentamos asignarlo y esperamos que explote
+        assertThrows(IllegalStateException.class, () -> {
+            solicitud.asignarTecnico(tecnico);
+        });
+    }
 }
