@@ -75,8 +75,7 @@ class SolicitudTest {
     @Test
     void no_se_puede_cerrar_solicitud_sin_tecnico_asignado() {
         Solicitud solicitud = new Solicitud();
-        solicitud.setEstado(Estado.EN_PROCESO); // Estado correcto...
-        // ...pero NO le asignamos técnico
+        solicitud.setEstado(Estado.EN_PROCESO); 
         
         assertThrows(IllegalStateException.class, solicitud::cerrar);
     }
@@ -90,9 +89,8 @@ class SolicitudTest {
         tecnico.setActivo(true);
         
         solicitud.asignarTecnico(tecnico);
-        solicitud.cerrar(); // Como todo es correcto, no debe lanzar excepción
+        solicitud.cerrar(); 
         
-        // Verificamos que efectivamente se ha cerrado
         assertEquals(Estado.CERRADA, solicitud.getEstado()); 
     }
     
