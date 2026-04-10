@@ -46,6 +46,12 @@ public class Solicitud {
 		if (this.estado != Estado.EN_PROCESO) {
             throw new IllegalStateException("Solo se pueden cerrar solicitudes en proceso");
         }
+		
+		
+        if (this.tecnico == null) {
+            throw new IllegalStateException("No se puede cerrar una solicitud sin técnico asignado");
+        }
+        
         this.estado = Estado.CERRADA; 
       }
 

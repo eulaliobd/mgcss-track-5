@@ -71,4 +71,29 @@ class SolicitudTest {
             solicitud.asignarTecnico(tecnico);
         });
     }
+    
+    @Test
+    void no_se_puede_cerrar_solicitud_sin_tecnico_asignado() {
+        Solicitud solicitud = new Solicitud();
+        solicitud.setEstado(Estado.EN_PROCESO); // Estado correcto...
+        // ...pero NO le asignamos técnico
+        
+        assertThrows(IllegalStateException.class, solicitud::cerrar);
+    }
+
+    @Test
+    void se_puede_cerrar_solicitud_correcta_con_tecnico() {
+        Solicitud solicitud = new Solicitud();
+        solicitud.setEstado(Estado.EN_PROCESO);
+        
+        Tecnico tecnico = new Tecnico();
+        tecnico.setActivo(true);
+        
+        solicitud.asignarTecnico(tecnico);
+        solicitud.cerrar(); // Como todo es correcto, no debe lanzar excepción
+        
+        // Verificamos que efectivamente se ha cerrado
+        assertEquals(Estado.CERRADA, solicitud.getEstado()); 
+    }
+    
 }
