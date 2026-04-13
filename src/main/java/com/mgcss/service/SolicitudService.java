@@ -20,15 +20,19 @@ public class SolicitudService {
     }
 
     public void asignarTecnico(Long solicitudId, Long tecnicoId) {
-        Tecnico tecnico = tecnicoRepository.findById(tecnicoId).get();
-        Solicitud solicitud = solicitudRepository.findById(solicitudId).get();
+    	Tecnico tecnico = tecnicoRepository.findById(tecnicoId)
+    		    .orElseThrow(() -> new IllegalArgumentException("El técnico especificado no existe"));
+    		        
+    		Solicitud solicitud = solicitudRepository.findById(solicitudId)
+    		    .orElseThrow(() -> new IllegalArgumentException("La solicitud especificada no existe"));
         
         solicitud.asignarTecnico(tecnico); 
         solicitudRepository.save(solicitud); 
     }
     
     public void cerrarSolicitud(Long solicitudId) {
-        Solicitud solicitud = solicitudRepository.findById(solicitudId).get();
+    	Solicitud solicitud = solicitudRepository.findById(solicitudId)
+    		    .orElseThrow(() -> new IllegalArgumentException("La solicitud especificada no existe"));
         
         solicitud.cerrar(); 
         
