@@ -2,12 +2,26 @@ package com.mgcss.domain;
 
 import java.time.LocalDateTime;
 
-public class Solicitud {
+import jakarta.persistence.*;
 
+@Entity
+public class Solicitud {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Enumerated(EnumType.STRING)
 	private Estado estado;
-	private LocalDateTime fechaCreacion;
+	
+	@ManyToOne
 	private Tecnico tecnico;
+	@ManyToOne 
+    private Cliente cliente;
+	
+	private String descripcion;
+	private LocalDateTime fechaCreacion = LocalDateTime.now();
+	
+	//private LocalDateTime fechaCierre;
+	
 
 	public Solicitud() {
 		//Constructor vacío necesario para instanciar
@@ -67,6 +81,26 @@ public class Solicitud {
         }
         
         this.tecnico=tecnico;
+	}
+
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setDescripcion(String string) {
+		this.descripcion = string;		
+	}
+
+
+	public void setCliente(Cliente cliente2) {
+		this.cliente = cliente2;
 	}
 
 }
