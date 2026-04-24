@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,4 +48,44 @@ class ClienteServiceTest {
             clienteService.modificarDatosBasicos(99L, "Fantasma", "no@existe.com");
         });
     }
+    
+    @Test
+    void deberiaCrearCliente() {
+        // Arrange
+        when(clienteRepository.save(any(Cliente.class))).thenAnswer(i -> i.getArguments()[0]);
+        
+        // Act
+        Cliente nuevo = clienteService.crearCliente("Ana", "ana@mail.com", TipoCliente.PREMIUM);
+        
+        // Assert
+        assertEquals("Ana", nuevo.getNombre());
+        assertEquals(TipoCliente.PREMIUM, nuevo.getTipoCliente());
+        verify(clienteRepository).save(any(Cliente.class));
+    }
+
+    @Test
+    void deberiaConsultarClienteExistente() {
+        // Arrange
+        Cliente c = new Cliente("Luis", "luis@mail.com", TipoCliente.STANDARD);
+        when(clienteRepository.findById(1L)).thenReturn(Optional.of(c));
+        
+        // Act
+        Cliente encontrado = clienteService.consultarCliente(1L);
+        
+        // Assert
+        assertEquals("Luis", encontrado.getNombre());
+    }
+
+    @Test
+    void deberiaListarClientes() {
+        // Arrange
+        when(clienteRepository.findAll()).thenReturn(List.of(new Cliente(), new Cliente()));
+        
+        // Act
+        List<Cliente> lista = clienteService.listarClientes();
+        
+        // Assert
+        assertEquals(2, lista.size());
+    }
+    
 }

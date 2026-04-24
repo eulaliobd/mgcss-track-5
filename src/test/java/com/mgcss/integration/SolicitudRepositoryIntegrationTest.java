@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest // Levanta el contexto parcial de Spring con H2 [cite: 133-139]
-@ActiveProfiles("test") // Le dice a Spring que lea el application-test.yml que acabamos de crear
-@Tag("integration") // Etiqueta obligatoria del Paso 6 del Handout [cite: 152]
+@DataJpaTest 
+@ActiveProfiles("test") 
+@Tag("integration") 
 class SolicitudRepositoryIntegrationTest {
 
-    // Spring inyectará automáticamente nuestros JpaSolicitudRepository gracias a la magia de la infraestructura
+    
     @Autowired
     private SolicitudRepository solicitudRepository;
 
@@ -26,8 +26,8 @@ class SolicitudRepositoryIntegrationTest {
     private ClienteRepository clienteRepository;
 
     @Test
-    void deberiaGuardarYRecuperarSolicitudConExito() { // [cite: 134-137]
-        // 1. Arrange: Creamos datos reales (SIN MOCKS) [cite: 141]
+    void deberiaGuardarYRecuperarSolicitudConExito() { 
+        // 1. Arrange: Creamos datos reales
         Cliente cliente = new Cliente();
         cliente.setNombre("Empresa ACME");
         cliente.setEmail("contacto@acme.com");
