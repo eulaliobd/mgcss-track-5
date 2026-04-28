@@ -20,7 +20,6 @@ public class Solicitud {
 	private String descripcion;
 	private LocalDateTime fechaCreacion = LocalDateTime.now();
 	
-	//private LocalDateTime fechaCierre;
 	
 
 	public Solicitud() {
