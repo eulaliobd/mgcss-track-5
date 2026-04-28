@@ -115,5 +115,23 @@ class SolicitudTest {
         assertEquals(Estado.EN_PROCESO, solicitud.getEstado(), "La solicitud reabierta debe estar EN_PROCESO");
     }
     
+    @Test
+    void deberiaRegistrarHistoricoDeEstados() {
+        // Arrange: Crear solicitud y preparar el técnico
+        Solicitud solicitud = new Solicitud();
+        Tecnico tecnico = new Tecnico();
+        tecnico.activar();
+        solicitud.asignarTecnico(tecnico);
+        
+        // Act: Cambiar estado varias veces 
+        solicitud.setEstado(Estado.EN_PROCESO);
+        solicitud.cerrar();
+        solicitud.reabrir();
+        
+        // Assert: Verificar que el histórico contiene todos los cambios en orden 
+        assertEquals(4, solicitud.getHistorialEstados().size(), "Debe haber 4 registros: inicial, en proceso, cerrada y reabierta");
+        assertEquals(Estado.EN_PROCESO, solicitud.getHistorialEstados().get(3).getEstado(), "El último registro debe ser EN_PROCESO");
+    }
+    
     
 }
