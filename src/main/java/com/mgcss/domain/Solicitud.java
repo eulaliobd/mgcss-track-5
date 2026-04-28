@@ -1,6 +1,8 @@
 package com.mgcss.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.*;
 
@@ -20,10 +22,16 @@ public class Solicitud {
 	private String descripcion;
 	private LocalDateTime fechaCreacion = LocalDateTime.now();
 	
+	@ElementCollection
+	private List<CambioEstado> historialEstados = new ArrayList<>();
 	
+	private void registrarCambioEstado(Estado nuevoEstado) {
+        this.historialEstados.add(new CambioEstado(nuevoEstado, LocalDateTime.now()));
+    }
 
 	public Solicitud() {
-		//Constructor vacío necesario para instanciar
+		this.estado = Estado.EN_PROCESO;
+		registrarCambioEstado(getEstado());
 	}
 	
 
@@ -41,6 +49,7 @@ public class Solicitud {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+		registrarCambioEstado(getEstado());
 	}
 
 	public LocalDateTime getFechaCreacion() {
@@ -66,6 +75,7 @@ public class Solicitud {
         }
         
         this.estado = Estado.CERRADA; 
+        registrarCambioEstado(getEstado());
       }
 
 	public void asignarTecnico(Tecnico tecnico) {
@@ -101,6 +111,18 @@ public class Solicitud {
 	public void setCliente(Cliente cliente2) {
 		this.cliente = cliente2;
 	}
+	
+	public void reabrir() {
+        if (this.estado != Estado.CERRADA) {
+            throw new IllegalStateException("Solo se pueden reabrir solicitudes cerradas");
+        }
+        this.estado = Estado.EN_PROCESO;
+        registrarCambioEstado(getEstado());
+    }
+	
+	public List<CambioEstado> getHistorialEstados() {
+        return historialEstados;
+    }
 
 }
 
