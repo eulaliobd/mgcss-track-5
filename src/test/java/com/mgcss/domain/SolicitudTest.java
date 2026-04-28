@@ -94,4 +94,19 @@ class SolicitudTest {
         assertEquals(Estado.CERRADA, solicitud.getEstado()); 
     }
     
+    @Test
+    void deberiaReabrirSolicitudCerrada() {
+        // Arrange: Crear solicitud, pasarla a EN_PROCESO y luego CERRARLA 
+        Solicitud solicitud = new Solicitud();
+        solicitud.setEstado(Estado.EN_PROCESO);
+        solicitud.cerrar();
+        
+        // Act: Intentar reabrirla 
+        solicitud.reabrir();
+        
+        // Assert: Verificar el estado final 
+        assertEquals(Estado.EN_PROCESO, solicitud.getEstado(), "La solicitud reabierta debe estar EN_PROCESO");
+    }
+    
+    
 }
