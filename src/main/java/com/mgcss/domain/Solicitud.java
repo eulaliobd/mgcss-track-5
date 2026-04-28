@@ -101,6 +101,13 @@ public class Solicitud {
 	public void setCliente(Cliente cliente2) {
 		this.cliente = cliente2;
 	}
+	
+	public void reabrir() {
+        if (this.estado != Estado.CERRADA) {
+            throw new IllegalStateException("Solo se pueden reabrir solicitudes cerradas");
+        }
+        this.estado = Estado.EN_PROCESO; // Lógica mínima para cumplir el test 
+    }
 
 }
 

@@ -96,15 +96,22 @@ class SolicitudTest {
     
     @Test
     void deberiaReabrirSolicitudCerrada() {
-        // Arrange: Crear solicitud, pasarla a EN_PROCESO y luego CERRARLA 
+        // Arrange: Preparamos la solicitud cumpliendo todas tus reglas de negocio
         Solicitud solicitud = new Solicitud();
-        solicitud.setEstado(Estado.EN_PROCESO);
+        
+        // 1. Creamos y asignamos un técnico (usa tu método de asignar)
+        Tecnico tecnico = new Tecnico();
+        tecnico.activar();
+        solicitud.asignarTecnico(tecnico); 
+        
+        // 2. La pasamos a en proceso y la cerramos
+        solicitud.setEstado(Estado.EN_PROCESO); 
         solicitud.cerrar();
         
-        // Act: Intentar reabrirla 
+        // Act: Intentamos reabrirla
         solicitud.reabrir();
         
-        // Assert: Verificar el estado final 
+        // Assert: Verificar el estado final
         assertEquals(Estado.EN_PROCESO, solicitud.getEstado(), "La solicitud reabierta debe estar EN_PROCESO");
     }
     
