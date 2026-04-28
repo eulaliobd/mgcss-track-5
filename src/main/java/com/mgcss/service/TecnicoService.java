@@ -4,7 +4,6 @@ import com.mgcss.domain.Tecnico;
 import com.mgcss.domain.TecnicoRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TecnicoService {
@@ -32,8 +31,8 @@ public class TecnicoService {
     }
 
     public List<Tecnico> listarTecnicosDisponibles() {
-        return tecnicoRepository.findAll().stream()
+    	return tecnicoRepository.findAll().stream()
                 .filter(Tecnico::isActivo)
-                .collect(Collectors.toList());
+                .toList();
     }
 }
