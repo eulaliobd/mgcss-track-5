@@ -1,10 +1,15 @@
 package com.mgcss.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.mgcss.domain.Solicitud;
 import com.mgcss.domain.SolicitudRepository;
 import com.mgcss.domain.Tecnico;
 import com.mgcss.domain.TecnicoRepository;
 
+@Service
 public class SolicitudService {
 
 	private final SolicitudRepository solicitudRepository;
@@ -35,6 +40,24 @@ public class SolicitudService {
     		    .orElseThrow(() -> new IllegalArgumentException("La solicitud especificada no existe"));
         
         solicitud.cerrar(); 
+        
+        solicitudRepository.save(solicitud);
+    }
+    
+    public Solicitud buscarPorId(Long id) {
+        return solicitudRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La solicitud con ID " + id + " no existe"));
+    }
+
+    
+    public List<Solicitud> listarTodas() {
+        return solicitudRepository.findAll();
+    }
+
+    public void reabrirSolicitud(Long id) {
+        Solicitud solicitud = buscarPorId(id);
+        
+        solicitud.reabrir(); 
         
         solicitudRepository.save(solicitud);
     }

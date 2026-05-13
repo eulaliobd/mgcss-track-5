@@ -7,13 +7,13 @@ import com.mgcss.domain.SolicitudRepository;
 import com.mgcss.domain.TipoCliente;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJpaTest 
+@DataJpaTest
 @ActiveProfiles("test") 
 @Tag("integration") 
 class SolicitudRepositoryIntegrationTest {
