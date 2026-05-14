@@ -20,10 +20,14 @@ public abstract class ClienteBaseDTO {
     private TipoCliente tipoCliente;
 
     public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public void setNombre(String nombre) {
+    	this.nombre = (nombre != null) ? nombre.trim() : null;
+    }
     
     public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) { 
+    	this.email = (email != null) ? email.trim().toLowerCase() : null; 
+    }
     
     public TipoCliente getTipoCliente() { return tipoCliente; }
     public void setTipoCliente(TipoCliente tipoCliente) { this.tipoCliente = tipoCliente; }
