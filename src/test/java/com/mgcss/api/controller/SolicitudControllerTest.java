@@ -14,8 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(SolicitudController.class) // Levanta solo la capa web, no la base de datos [cite: 133, 315-317]
-public class SolicitudControllerTest {
+@WebMvcTest(SolicitudController.class)
+class SolicitudControllerTest {
 
     @Autowired
     private MockMvc mockMvc; 

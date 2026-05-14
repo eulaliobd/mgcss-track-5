@@ -7,7 +7,9 @@ public class SolicitudRequestDTO {
     @NotBlank(message = "La descripción no puede estar vacía")
     private String descripcion;
 
-    public SolicitudRequestDTO() {}
+    public SolicitudRequestDTO() {
+    	//Constructor vacío
+    }
 
     public String getDescripcion() {
         return descripcion;

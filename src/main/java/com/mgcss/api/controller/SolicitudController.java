@@ -8,6 +8,8 @@ import com.mgcss.service.SolicitudService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -87,9 +89,9 @@ public class SolicitudController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Listar todas las solicitudes")
     @GetMapping
-    public ResponseEntity<?> listarSolicitudes() {
+    @Operation(summary = "Listar todas las solicitudes")
+    public ResponseEntity<List<SolicitudResponseDTO>> listarSolicitudes() {
         return ResponseEntity.ok(solicitudService.listarTodas().stream().map(this::mapearADTO).toList());
     }
     

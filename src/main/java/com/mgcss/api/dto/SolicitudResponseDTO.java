@@ -6,7 +6,9 @@ public class SolicitudResponseDTO {
     private String estado;
     private String descripcion;
 
-    public SolicitudResponseDTO() {}
+    public SolicitudResponseDTO() {
+    	//Constructor vacío
+    }
 
     public Long getId() {
         return id;
