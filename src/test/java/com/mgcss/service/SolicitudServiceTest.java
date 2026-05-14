@@ -89,4 +89,61 @@ class SolicitudServiceTest {
         verify(solicitudRepoMock).save(solicitud);
     }
     
+    @Test
+    void LanzarExcepcionSiBuscarPorIdNoExiste() {
+        SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
+        TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
+        
+        when(solicitudRepoMock.findById(99L)).thenReturn(Optional.empty());
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.buscarPorId(99L);
+        });
+    }
+
+    @Test
+    void LanzarExcepcionSiCerrarSolicitudNoExiste() {
+        SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
+        TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
+        
+        when(solicitudRepoMock.findById(99L)).thenReturn(Optional.empty());
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.cerrarSolicitud(99L);
+        });
+    }
+
+    @Test
+    void LanzarExcepcionSiAsignarTecnicoYTecnicoNoExiste() {
+        SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
+        TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
+        
+        when(tecnicoRepoMock.findById(99L)).thenReturn(Optional.empty());
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.asignarTecnico(1L, 99L); 
+        });
+        
+        verify(solicitudRepoMock, never()).save(any(Solicitud.class));
+    }
+
+    @Test
+    void LanzarExcepcionSiAsignarTecnicoYSolicitudNoExiste() {
+        SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
+        TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
+        
+        Tecnico tecnico = new Tecnico();
+        when(tecnicoRepoMock.findById(1L)).thenReturn(Optional.of(tecnico));
+        
+        when(solicitudRepoMock.findById(99L)).thenReturn(Optional.empty());
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.asignarTecnico(99L, 1L); // ID Solicitud: 99, ID Técnico: 1
+        });
+    }
+    
 }
