@@ -21,12 +21,13 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente modificarDatosBasicos(Long id, String nuevoNombre, String nuevoEmail) {
+    public Cliente modificarDatosBasicos(Long id, String nuevoNombre, String nuevoEmail, TipoCliente nuevoTipo) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
         
         cliente.setNombre(nuevoNombre);
         cliente.setEmail(nuevoEmail);
+        cliente.setTipoCliente(nuevoTipo);
         
         return clienteRepository.save(cliente);
     }

@@ -33,10 +33,11 @@ class ClienteServiceTest {
         when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteOriginal));
         when(clienteRepository.save(any(Cliente.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        Cliente modificado = clienteService.modificarDatosBasicos(1L, "Pepe Actualizado", "pepe@nuevo.com");
+        Cliente modificado = clienteService.modificarDatosBasicos(1L, "Pepe Actualizado", "pepe@nuevo.com",TipoCliente.PREMIUM);
 
         assertEquals("Pepe Actualizado", modificado.getNombre());
         assertEquals("pepe@nuevo.com", modificado.getEmail());
+        assertEquals(TipoCliente.PREMIUM, modificado.getTipoCliente());
         verify(clienteRepository).save(clienteOriginal); 
     }
 
@@ -45,7 +46,7 @@ class ClienteServiceTest {
         when(clienteRepository.findById(99L)).thenReturn(Optional.empty());
 
         assertThrows(IllegalArgumentException.class, () -> {
-            clienteService.modificarDatosBasicos(99L, "Fantasma", "no@existe.com");
+            clienteService.modificarDatosBasicos(99L, "Fantasma", "no@existe.com", TipoCliente.STANDARD);
         });
     }
     
