@@ -69,7 +69,7 @@ class TecnicoControllerTest {
         tecnicoSimulado.setId(1L);
         tecnicoSimulado.setActivo(false);
 
-        when(tecnicoService.desactivarTecnico(eq(1L))).thenReturn(tecnicoSimulado);
+        when(tecnicoService.desactivarTecnico(1L)).thenReturn(tecnicoSimulado);
 
         mockMvc.perform(patch("/api/tecnicos/1/desactivar")
                 .contentType(MediaType.APPLICATION_JSON))
