@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mgcss.domain.Cliente;
+import com.mgcss.domain.ClienteRepository;
 import com.mgcss.domain.Solicitud;
 import com.mgcss.domain.SolicitudRepository;
 import com.mgcss.domain.Tecnico;
@@ -14,10 +16,12 @@ public class SolicitudService {
 
 	private final SolicitudRepository solicitudRepository;
     private final TecnicoRepository tecnicoRepository;
+    private final ClienteRepository clienteRepository; 
     
-    public SolicitudService(SolicitudRepository solicitudRepository, TecnicoRepository tecnicoRepository) {
+    public SolicitudService(SolicitudRepository solicitudRepository, TecnicoRepository tecnicoRepository, ClienteRepository clienteRepository) {
         this.solicitudRepository = solicitudRepository;
         this.tecnicoRepository = tecnicoRepository;
+        this.clienteRepository = clienteRepository;
     }
 
     public void crearSolicitud(Solicitud solicitud) {
@@ -62,4 +66,14 @@ public class SolicitudService {
         solicitudRepository.save(solicitud);
     }
 	
+    public Solicitud asignarCliente(Long solicitudId, Long clienteId) {
+        Solicitud solicitud = solicitudRepository.findById(solicitudId)
+                .orElseThrow(() -> new IllegalArgumentException("Solicitud no encontrada"));
+
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado"));
+
+        solicitud.setCliente(cliente);
+        return solicitudRepository.save(solicitud);
+    }
 }
