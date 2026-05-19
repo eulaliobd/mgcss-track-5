@@ -16,7 +16,8 @@ public class Solicitud {
 	
 	@ManyToOne
 	private Tecnico tecnico;
-	@ManyToOne 
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 	
 	private String descripcion;

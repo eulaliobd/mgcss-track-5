@@ -5,6 +5,8 @@ public class SolicitudResponseDTO {
     private Long id;
     private String estado;
     private String descripcion;
+    private ClienteResponseDTO cliente;
+
 
     public SolicitudResponseDTO() {
     	//Constructor vacío
@@ -32,5 +34,13 @@ public class SolicitudResponseDTO {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+    
+    public ClienteResponseDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteResponseDTO cliente) {
+        this.cliente = cliente;
     }
 }

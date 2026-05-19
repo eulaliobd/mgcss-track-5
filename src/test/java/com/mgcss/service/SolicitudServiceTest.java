@@ -3,6 +3,8 @@ package com.mgcss.service;
 import org.junit.jupiter.api.Test;
 
 import com.mgcss.domain.TecnicoRepository;
+import com.mgcss.domain.Cliente;
+import com.mgcss.domain.ClienteRepository;
 import com.mgcss.domain.Estado;
 import com.mgcss.domain.Solicitud;
 import com.mgcss.domain.SolicitudRepository;
@@ -12,6 +14,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SolicitudServiceTest {
 
@@ -19,7 +23,8 @@ class SolicitudServiceTest {
     void LanzarExcepcionSiTecnicoInactivo() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);
         
         Tecnico tecnicoInactivo = new Tecnico();
         tecnicoInactivo.setActivo(false);
@@ -40,7 +45,8 @@ class SolicitudServiceTest {
     void AsignarTecnicoCorrectamente() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);
         
         Tecnico tecnicoActivo = new Tecnico();
         tecnicoActivo.setActivo(true);
@@ -60,8 +66,8 @@ class SolicitudServiceTest {
     void CrearSolicitudLlamandoAlRepositorio() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
-        
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
         Solicitud nuevaSolicitud = new Solicitud();
         
         service.crearSolicitud(nuevaSolicitud);
@@ -73,8 +79,8 @@ class SolicitudServiceTest {
     void deberiaCerrarSolicitudLlamandoAlRepositorio() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
-        
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
         Tecnico tecnico = new Tecnico();
         tecnico.setActivo(true);
         
@@ -93,8 +99,8 @@ class SolicitudServiceTest {
     void LanzarExcepcionSiBuscarPorIdNoExiste() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
-        
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
         when(solicitudRepoMock.findById(99L)).thenReturn(Optional.empty());
         
         assertThrows(IllegalArgumentException.class, () -> {
@@ -106,8 +112,8 @@ class SolicitudServiceTest {
     void LanzarExcepcionSiCerrarSolicitudNoExiste() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
-        
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
         when(solicitudRepoMock.findById(99L)).thenReturn(Optional.empty());
         
         assertThrows(IllegalArgumentException.class, () -> {
@@ -119,8 +125,8 @@ class SolicitudServiceTest {
     void LanzarExcepcionSiAsignarTecnicoYTecnicoNoExiste() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
-        
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
         when(tecnicoRepoMock.findById(99L)).thenReturn(Optional.empty());
         
         assertThrows(IllegalArgumentException.class, () -> {
@@ -134,8 +140,8 @@ class SolicitudServiceTest {
     void LanzarExcepcionSiAsignarTecnicoYSolicitudNoExiste() {
         SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
         TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
-        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock);
-        
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
         Tecnico tecnico = new Tecnico();
         when(tecnicoRepoMock.findById(1L)).thenReturn(Optional.of(tecnico));
         
@@ -144,6 +150,33 @@ class SolicitudServiceTest {
         assertThrows(IllegalArgumentException.class, () -> {
             service.asignarTecnico(99L, 1L); // ID Solicitud: 99, ID Técnico: 1
         });
+    }
+    
+    @Test
+    void deberiaAsignarClienteASolicitud() {
+        // Arrange
+    	SolicitudRepository solicitudRepoMock = mock(SolicitudRepository.class);
+        TecnicoRepository tecnicoRepoMock = mock(TecnicoRepository.class);
+        ClienteRepository clienteRepoMock = mock(ClienteRepository.class);
+        SolicitudService service = new SolicitudService(solicitudRepoMock, tecnicoRepoMock, clienteRepoMock);        
+            	
+        Solicitud solicitud = new Solicitud();
+        solicitud.setId(1L);
+        
+        Cliente cliente = new Cliente();
+        cliente.setId(1L);
+        cliente.setNombre("Paco");
+
+        when(solicitudRepoMock.findById(1L)).thenReturn(Optional.of(solicitud));
+        when(clienteRepoMock.findById(1L)).thenReturn(Optional.of(cliente));
+        when(solicitudRepoMock.save(any(Solicitud.class))).thenAnswer(i -> i.getArguments()[0]);
+        
+        // Act
+        Solicitud actualizada = service.asignarCliente(1L, 1L);
+
+        // Assert
+        assertNotNull(actualizada.getCliente());
+        assertEquals("Paco", actualizada.getCliente().getNombre());
     }
     
 }

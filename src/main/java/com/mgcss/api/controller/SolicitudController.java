@@ -1,5 +1,6 @@
 package com.mgcss.api.controller;
 
+import com.mgcss.api.dto.ClienteResponseDTO;
 import com.mgcss.api.dto.SolicitudRequestDTO;
 import com.mgcss.api.dto.SolicitudResponseDTO;
 import com.mgcss.domain.Solicitud; 
@@ -32,6 +33,14 @@ public class SolicitudController {
         dto.setId(solicitud.getId());
         dto.setEstado(solicitud.getEstado().name());         
         dto.setDescripcion(solicitud.getDescripcion());
+        if (solicitud.getCliente() != null) {
+            ClienteResponseDTO clienteDTO = new ClienteResponseDTO();
+            clienteDTO.setId(solicitud.getCliente().getId());
+            clienteDTO.setNombre(solicitud.getCliente().getNombre());
+            clienteDTO.setEmail(solicitud.getCliente().getEmail());
+            clienteDTO.setTipoCliente(solicitud.getCliente().getTipoCliente());
+            dto.setCliente(clienteDTO);
+        }
         return dto;
     }
 
@@ -93,6 +102,16 @@ public class SolicitudController {
     @Operation(summary = "Listar todas las solicitudes")
     public ResponseEntity<List<SolicitudResponseDTO>> listarSolicitudes() {
         return ResponseEntity.ok(solicitudService.listarTodas().stream().map(this::mapearADTO).toList());
+    }
+    
+    @PatchMapping("/{idSolicitud}/cliente/{idCliente}")
+    @Operation(summary = "Asignar un cliente a una solicitud")
+    public ResponseEntity<SolicitudResponseDTO> asignarCliente(
+            @PathVariable Long idSolicitud, 
+            @PathVariable Long idCliente) {
+        
+        Solicitud solicitud = solicitudService.asignarCliente(idSolicitud, idCliente);
+        return ResponseEntity.ok(mapearADTO(solicitud));
     }
     
 }
