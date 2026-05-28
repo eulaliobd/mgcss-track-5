@@ -22,10 +22,10 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
-	  - name: Construir, Testear y Analizar en SonarQube
-		 env:
-		   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-		 run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=eulaliobd_mgcss-track-5 -Dsonar.organization=eulaliobd
+      - name: Construir, Testear y Analizar en SonarQube
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=eulaliobd_mgcss-track-5 -Dsonar.organization=eulaliobd
 
       - name: Construir imagen Docker
         run: docker build -t mgcss-track:${{ github.ref_name }} .
