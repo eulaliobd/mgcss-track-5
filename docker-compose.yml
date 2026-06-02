@@ -14,7 +14,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   app:
-    image: mgcss-track
+    image: alejandromc795/mgcss-track:latest
     container_name: mgcss-app
     ports:
       - "8080:8080"
