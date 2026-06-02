@@ -2,61 +2,46 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=eulaliobd_mgcss-track-5&metric=coverage)](https://sonarcloud.io/summary/new_code?id=eulaliobd_mgcss-track-5)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=eulaliobd_mgcss-track-5&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=eulaliobd_mgcss-track-5)
 
-# \# Proyecto MGCSS - Grupo 5
+# MGCSS Track - Plataforma de Gestión de Solicitudes de Servicio
 
-# 
+Bienvenido al repositorio oficial del proyecto **mgcss-track-5**, desarrollado para la asignatura de Mejora y Gestión de la Calidad del Subsistema de Software (MGCSS).
 
-# Bienvenido al repositorio oficial del proyecto de Metodología y Gestión de Configuración de Sistemas Software (MGCSS).
+Este proyecto consiste en un sistema backend robusto para la gestión de clientes, técnicos y solicitudes de servicio, diseñado con un fuerte enfoque en la calidad del código, la mantenibilidad y la automatización de procesos (DevOps).
 
-# 
+---
 
-# \## Equipo de Desarrollo
+## Stack Tecnológico y Arquitectura
 
-# \* \*\*Eulalio Bermejo Domínguez\*\*
+El sistema ha evolucionado para utilizar un stack moderno y orientado a la producción:
 
-# \* \*\*Alejandro Moreno Cornejo\*\* 
+**Backend & Frameworks:**
+* **Lenguaje:** Java 17
+* **Framework Core:** Spring Boot 3 / Spring Data JPA
+* **Gestor de dependencias:** Maven
+* **Documentación API:** OpenAPI / Swagger UI
 
-# 
+**Bases de Datos:**
+* **Producción:** PostgreSQL (Orquestado en contenedores)
+* **Testing:** H2 (Base de datos en memoria para integración continua)
 
-# \## Stack Tecnológico
+**DevOps & Calidad (CI/CD):**
+* **Control de Versiones:** Git & GitHub
+* **Integración y Entrega Continua:** GitHub Actions (`ci.yml`, `release.yml`)
+* **Análisis Estático de Código:** SonarCloud (Quality Gate integrado)
+* **Orquestación y Despliegue:** Docker, Docker Compose y Docker Hub
 
-# Este proyecto está configurado para utilizar las siguientes tecnologías y herramientas:
+**Arquitectura:**
+El código sigue una estructura de **Arquitectura Hexagonal (Puertos y Adaptadores)**, separando estrictamente la lógica de negocio (`domain`) de los detalles técnicos de la base de datos (`infrastructure`) y la exposición web (`api`).
 
-# \* \*\*Lenguaje:\*\* Java
+---
 
-# \* \*\*Framework:\*\* Spring / Spring Boot
+## Despliegue Rápido (Quick Start)
 
-# \* \*\*Gestor de dependencias:\*\* Maven
+El proyecto está dockerizado y publicado en Docker Hub. Para desplegar el sistema completo (Aplicación + Base de Datos PostgreSQL) no es necesario disponer de Java ni de Maven, **solo necesitas tener instalado Docker Desktop**.
 
-# \* \*\*IDE Recomendado:\*\* Spring Tools for Eclipse (STS)
-
-# \* \*\*Control de Versiones:\*\* Git \& GitHub
-
-# 
-
-# \## Estrategia de Ramas (Branching Strategy)
-
-# Para mantener la integridad del código, el equipo sigue una estricta estrategia de ramas:
-
-# 1\. \*\*`main`\*\*: Rama principal protegida. Contiene únicamente código estable y funcional. El \*push\* directo está bloqueado.
-
-# 2\. \*\*`feature/\*`\*\*: Ramas efímeras creadas para el desarrollo de nuevas funcionalidades o tareas (ej. `feature/initial-structure`).
-
-# 3\. \*\*Pull Requests (PRs)\*\*: Todo código debe integrarse a `main` a través de una PR, requiriendo revisión por pares (Code Review) y la resolución de cualquier conversación abierta.
-
-# 
-
-# \## Convención de Commits
-
-# El historial del repositorio sigue la convención de \*\*Conventional Commits\*\* para mantener la trazabilidad:
-
-# \* `feat:` Para nuevas funcionalidades.
-
-# \* `fix:` Para corrección de errores.
-
-# \* `refactor:` Para reestructuración del código sin añadir funcionalidades.
-
-# \* `docs:` Para cambios en la documentación (como este README).
-
-# \* `test:` Para añadir o modificar pruebas.
+1. Descarga el archivo `docker-compose.yml` de la [última Release](https://github.com/eulaliobd/mgcss-track-5/releases) (extrayéndolo del código fuente comprimido).
+2. Coloca el archivo en un directorio vacío.
+3. Abre una terminal en ese directorio y ejecuta:
+   ```bash
+   docker-compose up -d
 
